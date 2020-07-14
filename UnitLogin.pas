@@ -64,6 +64,11 @@ type
     actEscolher: TChangeTabAction;
     actFoto: TChangeTabAction;
     actLogin: TChangeTabAction;
+    Layout17: TLayout;
+    Label5: TLabel;
+    Label6: TLabel;
+    Rectangle2: TRectangle;
+    Layout18: TLayout;
     procedure lbl_login_contaClick(Sender: TObject);
     procedure Label2Click(Sender: TObject);
     procedure Label3Click(Sender: TObject);

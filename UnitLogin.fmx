@@ -9093,9 +9093,9 @@ object FrmLogin: TFrmLogin
         end
         object Layout15: TLayout
           Align = Bottom
-          Position.Y = 496.000000000000000000
+          Position.Y = 502.000000000000000000
           Size.Width = 331.000000000000000000
-          Size.Height = 63.000000000000000000
+          Size.Height = 57.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 4
           object Layout16: TLayout
@@ -11269,7 +11269,7 @@ object FrmLogin: TFrmLogin
           Size.Width = 291.000000000000000000
           Size.Height = 50.000000000000000000
           Size.PlatformDefault = False
-          TabOrder = 4
+          TabOrder = 3
           object RoundRect4: TRoundRect
             Align = Contents
             Opacity = 0.600000023841857900
@@ -11307,7 +11307,7 @@ object FrmLogin: TFrmLogin
           Size.Width = 291.000000000000000000
           Size.Height = 50.000000000000000000
           Size.PlatformDefault = False
-          TabOrder = 3
+          TabOrder = 2
           object RoundRect5: TRoundRect
             Align = Contents
             Opacity = 0.600000023841857900
@@ -11346,7 +11346,7 @@ object FrmLogin: TFrmLogin
           Size.Width = 291.000000000000000000
           Size.Height = 50.000000000000000000
           Size.PlatformDefault = False
-          TabOrder = 1
+          TabOrder = 0
           object RoundRect6: TRoundRect
             Align = Contents
             Fill.Color = xFF5769DF
@@ -11381,7 +11381,7 @@ object FrmLogin: TFrmLogin
           Size.Width = 291.000000000000000000
           Size.Height = 50.000000000000000000
           Size.PlatformDefault = False
-          TabOrder = 2
+          TabOrder = 1
           object RoundRect7: TRoundRect
             Align = Contents
             Opacity = 0.600000023841857900
@@ -11408,6 +11408,63 @@ object FrmLogin: TFrmLogin
             Size.PlatformDefault = False
             TextPrompt = 'Senha'
             StyledSettings = [Family]
+          end
+        end
+        object Layout18: TLayout
+          Align = Bottom
+          Position.Y = 502.000000000000000000
+          Size.Width = 331.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          object Layout17: TLayout
+            Align = Center
+            Size.Width = 280.000000000000000000
+            Size.Height = 50.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            object Label5: TLabel
+              Align = Left
+              StyledSettings = [Family]
+              Margins.Left = 5.000000000000000000
+              Margins.Bottom = 25.000000000000000000
+              Position.X = 5.000000000000000000
+              Size.Width = 137.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Size = 16.000000000000000000
+              TextSettings.Font.StyleExt = {00060000000000000004000000}
+              TextSettings.FontColor = claWhite
+              Text = 'Login'
+              TabOrder = 1
+            end
+            object Label6: TLabel
+              Align = Right
+              StyledSettings = [Family]
+              HitTest = True
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 25.000000000000000000
+              Position.X = 138.000000000000000000
+              Size.Width = 137.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Size = 16.000000000000000000
+              TextSettings.Font.StyleExt = {00060000000000000004000000}
+              TextSettings.FontColor = claWhite
+              TextSettings.HorzAlign = Trailing
+              Text = 'Criar Conta'
+              TabOrder = 0
+              OnClick = lbl_login_contaClick
+            end
+            object Rectangle2: TRectangle
+              Fill.Color = claWhite
+              Position.X = 1.000000000000000000
+              Position.Y = 27.000000000000000000
+              Size.Width = 65.000000000000000000
+              Size.Height = 3.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Kind = None
+            end
           end
         end
       end
