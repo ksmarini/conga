@@ -65,6 +65,8 @@ type
     actFoto: TChangeTabAction;
     actLogin: TChangeTabAction;
     procedure lbl_login_contaClick(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
+    procedure Label3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -77,6 +79,16 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TFrmLogin.Label2Click(Sender: TObject);
+begin
+  actFoto.Execute;
+end;
+
+procedure TFrmLogin.Label3Click(Sender: TObject);
+begin
+  actEscolher.Execute;
+end;
 
 procedure TFrmLogin.lbl_login_contaClick(Sender: TObject);
 begin
