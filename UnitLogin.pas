@@ -3,9 +3,11 @@ unit UnitLogin;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls, FMX.TabControl,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls,
+  FMX.TabControl,
   System.Actions, FMX.ActnList, u99Permissions, FMX.MediaLibrary.Actions,
   FMX.StdActns;
 
@@ -82,6 +84,9 @@ type
     procedure img_FotoClick(Sender: TObject);
     procedure img_LibraryClick(Sender: TObject);
     procedure img_Escolher_VoltarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure actLibraryDidFinishTaking(Image: TBitmap);
+    procedure actCameraDidFinishTaking(Image: TBitmap);
   private
     { Private declarations }
     permissao: T99Permissions;
@@ -97,6 +102,18 @@ implementation
 
 {$R *.fmx}
 
+procedure TFrmLogin.actCameraDidFinishTaking(Image: TBitmap);
+begin
+  c_Foto_Editar.Fill.Bitmap.Bitmap := Image;
+  actFoto.Execute;
+end;
+
+procedure TFrmLogin.actLibraryDidFinishTaking(Image: TBitmap);
+begin
+  c_Foto_Editar.Fill.Bitmap.Bitmap := Image;
+  actFoto.Execute;
+end;
+
 procedure TFrmLogin.c_Foto_EditarClick(Sender: TObject);
 begin
   actEscolher.Execute;
@@ -110,6 +127,11 @@ end;
 procedure TFrmLogin.FormDestroy(Sender: TObject);
 begin
   permissao.DisposeOf;
+end;
+
+procedure TFrmLogin.FormShow(Sender: TObject);
+begin
+  TabControl1.ActiveTab := TabLogin;
 end;
 
 procedure TFrmLogin.TrataErroPermissao(Sender: TObject);
