@@ -3,7 +3,8 @@ program Conga;
 uses
   System.StartUpCopy,
   FMX.Forms,
-  UnitLogin in 'UnitLogin.pas' {FrmLogin};
+  UnitLogin in 'UnitLogin.pas' {FrmLogin},
+  u99Permissions in 'Units\u99Permissions.pas';
 
 {$R *.res}
 

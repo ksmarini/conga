@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Layouts, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls, FMX.TabControl,
-  System.Actions, FMX.ActnList;
+  System.Actions, FMX.ActnList, u99Permissions, FMX.MediaLibrary.Actions,
+  FMX.StdActns;
 
 type
   TFrmLogin = class(TForm)
@@ -34,26 +35,26 @@ type
     RoundRect5: TRoundRect;
     edt_cad_email: TEdit;
     Layout8: TLayout;
-    RoundRect6: TRoundRect;
+    rec_Conta_Proximo: TRoundRect;
     Label2: TLabel;
     Layout9: TLayout;
     RoundRect7: TRoundRect;
     edt_cad_senha: TEdit;
     TabFoto: TTabItem;
     Layout10: TLayout;
-    Circle1: TCircle;
+    c_Foto_Editar: TCircle;
     Layout11: TLayout;
     RoundRect8: TRoundRect;
     Label3: TLabel;
     TabEscolher: TTabItem;
     Layout12: TLayout;
     Label4: TLabel;
-    Image2: TImage;
-    Image3: TImage;
+    img_Foto: TImage;
+    img_Library: TImage;
     Layout13: TLayout;
-    Image4: TImage;
+    img_Foto_Voltar: TImage;
     Layout14: TLayout;
-    Image5: TImage;
+    img_Escolher_Voltar: TImage;
     Layout15: TLayout;
     Layout16: TLayout;
     lbl_login_tab: TLabel;
@@ -65,15 +66,26 @@ type
     actFoto: TChangeTabAction;
     actLogin: TChangeTabAction;
     Layout17: TLayout;
-    Label5: TLabel;
+    lbl_conta_login: TLabel;
     Label6: TLabel;
     Rectangle2: TRectangle;
     Layout18: TLayout;
+    actLibrary: TTakePhotoFromLibraryAction;
+    actCamera: TTakePhotoFromCameraAction;
     procedure lbl_login_contaClick(Sender: TObject);
-    procedure Label2Click(Sender: TObject);
-    procedure Label3Click(Sender: TObject);
+    procedure lbl_conta_loginClick(Sender: TObject);
+    procedure rec_Conta_ProximoClick(Sender: TObject);
+    procedure img_Foto_VoltarClick(Sender: TObject);
+    procedure c_Foto_EditarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure img_FotoClick(Sender: TObject);
+    procedure img_LibraryClick(Sender: TObject);
+    procedure img_Escolher_VoltarClick(Sender: TObject);
   private
     { Private declarations }
+    permissao: T99Permissions;
+    procedure TrataErroPermissao(Sender: TObject);
   public
     { Public declarations }
   end;
@@ -85,19 +97,59 @@ implementation
 
 {$R *.fmx}
 
-procedure TFrmLogin.Label2Click(Sender: TObject);
+procedure TFrmLogin.c_Foto_EditarClick(Sender: TObject);
+begin
+  actEscolher.Execute;
+end;
+
+procedure TFrmLogin.FormCreate(Sender: TObject);
+begin
+  permissao := T99Permissions.Create;
+end;
+
+procedure TFrmLogin.FormDestroy(Sender: TObject);
+begin
+  permissao.DisposeOf;
+end;
+
+procedure TFrmLogin.TrataErroPermissao(Sender: TObject);
+begin
+  ShowMessage('Você não tem permissão de acesso para esse recurso!');
+end;
+
+procedure TFrmLogin.img_Escolher_VoltarClick(Sender: TObject);
 begin
   actFoto.Execute;
 end;
 
-procedure TFrmLogin.Label3Click(Sender: TObject);
+procedure TFrmLogin.img_FotoClick(Sender: TObject);
 begin
-  actEscolher.Execute;
+  permissao.Camera(actCamera, TrataErroPermissao);
+end;
+
+procedure TFrmLogin.img_Foto_VoltarClick(Sender: TObject);
+begin
+  actConta.Execute;
+end;
+
+procedure TFrmLogin.img_LibraryClick(Sender: TObject);
+begin
+  permissao.PhotoLibrary(actLibrary, TrataErroPermissao);
+end;
+
+procedure TFrmLogin.lbl_conta_loginClick(Sender: TObject);
+begin
+  actLogin.Execute;
 end;
 
 procedure TFrmLogin.lbl_login_contaClick(Sender: TObject);
 begin
   actConta.Execute;
+end;
+
+procedure TFrmLogin.rec_Conta_ProximoClick(Sender: TObject);
+begin
+  actFoto.Execute;
 end;
 
 end.
