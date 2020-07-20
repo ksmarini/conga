@@ -9,6 +9,9 @@ uses
   FMX.Layouts, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls,
   FMX.TabControl,
   System.Actions, FMX.ActnList, u99Permissions, FMX.MediaLibrary.Actions,
+  {$IFDEF ANDROID}
+  FMX.VirtualKeyBoard, FMX.PlatForm,
+  {$ENDIF}
   FMX.StdActns;
 
 type
@@ -153,10 +156,12 @@ begin
     begin
       //Botão back pressionado e teclado NÃO visível
       Key := 0;
-      if TabControl1.Active = TabCadastro then
-        actConsulta.Execute
-      else
-        Close;
+      if TabControl1.Active = TabConta then
+        actLogin.Execute
+      else if TabControl1.Active = TabFoto then
+        actConta.Execute
+      else if TabControl1.Active = TabEscolher then
+        actFoto.Execute;
     end;
   end;
   {$ENDIF}
