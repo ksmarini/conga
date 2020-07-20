@@ -6859,6 +6859,7 @@ object FrmLogin: TFrmLogin
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   DesignerMasterStyle = 0
   object TabControl1: TTabControl

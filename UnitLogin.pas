@@ -87,6 +87,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure actLibraryDidFinishTaking(Image: TBitmap);
     procedure actCameraDidFinishTaking(Image: TBitmap);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
   private
     { Private declarations }
     permissao: T99Permissions;
@@ -127,6 +129,37 @@ end;
 procedure TFrmLogin.FormDestroy(Sender: TObject);
 begin
   permissao.DisposeOf;
+end;
+
+procedure TFrmLogin.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+{$IFDEF ANDROID}
+var
+  FServico : IFMXVirtualKeyboardService;
+{$ENDIF}
+begin
+  {$IFDEF ANDROID}
+  if (Key = vkHardwareBack) then
+  begin
+    TPlatFormServices.Current.SupportsPlatFormService(IFMXVirtualKeyBoardService,
+                                                      IInterface(FServico));
+    if (FServico <> nil) and
+        (TVirtualKeyBoardState.Visible in FServico.VirtualKeyBoardState) then
+    begin
+      //Botão back pressionado e teclado visível
+      //Apenas Fecha o teclado
+    end
+    else
+    begin
+      //Botão back pressionado e teclado NÃO visível
+      Key := 0;
+      if TabControl1.Active = TabCadastro then
+        actConsulta.Execute
+      else
+        Close;
+    end;
+  end;
+  {$ENDIF}
 end;
 
 procedure TFrmLogin.FormShow(Sender: TObject);
