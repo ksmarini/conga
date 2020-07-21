@@ -1,7 +1,7 @@
 object FrmLogin: TFrmLogin
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Conga'
   ClientHeight = 559
   ClientWidth = 331
   Fill.Bitmap.Bitmap.PNG = {
