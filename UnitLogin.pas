@@ -155,17 +155,17 @@ begin
     else
     begin
       //Botão back pressionado e teclado NÃO visível
-      if TabControl1.Active = TabConta then
+      if TabControl1.ActiveTab = TabConta then
       begin
         Key := 0;
         actLogin.Execute
       end
-      else if TabControl1.Active = TabFoto then
+      else if TabControl1.ActiveTab = TabFoto then
       begin
         Key := 0;
         actConta.Execute
       end
-      else if TabControl1.Active = TabEscolher then
+      else if TabControl1.ActiveTab = TabEscolher then
       begin
         Key := 0;
         actFoto.Execute;
