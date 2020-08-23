@@ -1083,6 +1083,7 @@ object FrmPrincipal: TFrmPrincipal
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnClose = FormClose
   OnShow = FormShow
   DesignerMasterStyle = 0
   object Layout1: TLayout
@@ -2586,9 +2587,10 @@ object FrmPrincipal: TFrmPrincipal
         Text = #218'ltimos Lan'#231'amentos'
         TabOrder = 5
       end
-      object Label9: TLabel
+      object lbl_todos_lanc: TLabel
         Align = Right
         StyledSettings = [Family]
+        HitTest = True
         Opacity = 0.699999988079071000
         Margins.Right = 20.000000000000000000
         Position.X = 223.000000000000000000
@@ -2599,6 +2601,7 @@ object FrmPrincipal: TFrmPrincipal
         TextSettings.HorzAlign = Trailing
         Text = 'Ver Todos'
         TabOrder = 4
+        OnClick = lbl_todos_lancClick
       end
     end
     object lv_lancamento: TListView

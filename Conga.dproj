@@ -6,7 +6,7 @@
         <MainSource>Conga.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Android</Platform>
         <TargetedPlatforms>33887</TargetedPlatforms>
         <AppType>Application</AppType>
     </PropertyGroup>
@@ -407,6 +407,10 @@
         <DCCReference Include="Units\u99Permissions.pas"/>
         <DCCReference Include="UnitPrincipal.pas">
             <Form>FrmPrincipal</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="UnitLancamentos.pas">
+            <Form>FrmLancamentos</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">

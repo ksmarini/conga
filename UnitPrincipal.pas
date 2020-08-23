@@ -35,17 +35,21 @@ type
     Rectangle2: TRectangle;
     Layout7: TLayout;
     Label8: TLabel;
-    Label9: TLabel;
+    lbl_todos_lanc: TLabel;
     lv_lancamento: TListView;
     img_categoria: TImage;
     procedure FormShow(Sender: TObject);
     procedure lv_lancamentoUpdateObjects(const Sender: TObject;
       const AItem: TListViewItem);
+    procedure lbl_todos_lancClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    procedure AddLancamento(id_lancamento, descricao, categoria: String;
-      valor: Double; dt: TDateTime; foto: TStream);
     { Private declarations }
   public
+    procedure AddLancamento(ListView: TListView;
+      id_lancamento, descricao, categoria: String; valor: Double; dt: TDateTime;
+      foto: TStream);
+    procedure SetupLancamento(lv: TListView; Item: TListViewItem);
     { Public declarations }
   end;
 
@@ -56,14 +60,19 @@ implementation
 
 {$R *.fmx}
 
-procedure TFrmPrincipal.AddLancamento(id_lancamento, descricao,
-  categoria: String; valor: Double; dt: TDateTime; foto: TStream);
+uses UnitLancamentos;
+
+//******************** UNIT FUNÇÕES GLOBAIS *********************
+
+procedure TFrmPrincipal.AddLancamento(ListView: TListView;
+  id_lancamento, descricao, categoria: String; valor: Double; dt: TDateTime;
+  foto: TStream);
 var
   txt: TListItemText;
   img: TListItemImage;
   bmp: TBitmap;
 begin
-  with lv_lancamento.Items.Add do
+  with ListView.Items.Add do
   begin
     // exemplo de uso com variável
     txt := TListItemText(Objects.FindDrawable('txtDescricao'));
@@ -74,9 +83,10 @@ begin
     // Sem o formatFloat a atribuição retornaria um erro devido ao tipo double ser incompatível com o tipo string
     TListItemText(Objects.FindDrawable('txtValor')).Text :=
       FormatFloat('#,##0.00', valor);
-    TListItemText(Objects.FindDrawable('txtData')).Text := FormatDateTime('dd/mm', dt);
+    TListItemText(Objects.FindDrawable('txtData')).Text :=
+      FormatDateTime('dd/mm', dt);
 
-    //Ícone -> também poderia ser feito sem o uso da variável
+    // Ícone -> também poderia ser feito sem o uso da variável
     img := TListItemImage(Objects.FindDrawable('imgIcone'));
 
     if foto <> nil then
@@ -84,13 +94,41 @@ begin
       bmp := TBitmap.Create;
       bmp.LoadFromStream(foto);
 
-      //Essa parte só faz quando a imagem está sendo setada em tempo de execução
-      //Se a imagem estiver estática, vindo do disco ou banco, dará access violation
-      //Caso o comando abaixo não existisse, a lista no android viria em branco
+      // Essa parte só faz quando a imagem está sendo setada em tempo de execução
+      // Se a imagem estiver estática, vindo do disco ou banco, dará access violation
+      // Caso o comando abaixo não existisse, a lista no android viria em branco
       img.OwnsBitmap := True;
 
       img.Bitmap := bmp;
     end;
+  end;
+end;
+
+procedure TFrmPrincipal.SetupLancamento(lv: TListView; Item: TListViewItem);
+var
+  txt: TListItemText;
+  //img: TListItemImage;
+begin
+  // determina até onde o texto da descrição pode extender antes de cortar a descrição
+  txt := TListItemText(Item.Objects.FindDrawable('txtDescricao'));
+  txt.Width := lv.Width - txt.PlaceOffset.x - 80;
+
+//  img := TListItemImage(AItem.Objects.FindDrawable('ImgIcone'));
+//
+//  if lv_lancamento.Width < 200 then
+//  begin
+//    img.Visible := False;
+//    txt.PlaceOffset.X := 2;
+//  end;
+
+end;
+
+procedure TFrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if Assigned(FrmLancamentos) then
+  begin
+    FrmLancamentos.DisposeOf;
+    FrmLancamentos := nil;
   end;
 end;
 
@@ -104,19 +142,24 @@ begin
   foto.Position := 0;
 
   for x := 1 to 10 do
-    AddLancamento('0001', 'Compra equipamento', 'Informática', -99, date, foto);
+    AddLancamento(FrmPrincipal.lv_lancamento, '0001', 'Compra equipamento',
+      'Informática', -99, date, foto);
 
   foto.DisposeOf;
 end;
 
+procedure TFrmPrincipal.lbl_todos_lancClick(Sender: TObject);
+begin
+  if not Assigned(FrmLancamentos) then
+    Application.CreateForm(TFrmLancamentos, FrmLancamentos);
+
+  FrmLancamentos.Show;
+end;
+
 procedure TFrmPrincipal.lv_lancamentoUpdateObjects(const Sender: TObject;
   const AItem: TListViewItem);
-var
-  txt: TListItemText;
 begin
-  //determina até onde o texto da descrição pode extender antes de cortar a descrição
-    txt := TListItemText(AItem.Objects.FindDrawable('txtDescricao'));
-    txt.Width := lv_lancamento.Width - txt.PlaceOffset.X - 80;
+  SetupLancamento(FrmPrincipal.lv_lancamento, AItem);
 end;
 
 end.
