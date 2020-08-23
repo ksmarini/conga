@@ -26,7 +26,7 @@ type
     RoundRect2: TRoundRect;
     edt_login_senha: TEdit;
     Layout4: TLayout;
-    RoundRect3: TRoundRect;
+    rect_login: TRoundRect;
     Label1: TLabel;
     TabControl1: TTabControl;
     TabLogin: TTabItem;
@@ -92,6 +92,8 @@ type
     procedure actCameraDidFinishTaking(Image: TBitmap);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure rect_loginClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     permissao: T99Permissions;
@@ -106,6 +108,8 @@ var
 implementation
 
 {$R *.fmx}
+
+uses UnitPrincipal;
 
 procedure TFrmLogin.actCameraDidFinishTaking(Image: TBitmap);
 begin
@@ -122,6 +126,12 @@ end;
 procedure TFrmLogin.c_Foto_EditarClick(Sender: TObject);
 begin
   actEscolher.Execute;
+end;
+
+procedure TFrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := TCloseAction.caFree;
+  FrmLogin := nil;
 end;
 
 procedure TFrmLogin.FormCreate(Sender: TObject);
@@ -213,6 +223,16 @@ end;
 procedure TFrmLogin.lbl_login_contaClick(Sender: TObject);
 begin
   actConta.Execute;
+end;
+
+procedure TFrmLogin.rect_loginClick(Sender: TObject);
+begin
+  if not assigned(frmPrincipal) then
+    Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+
+  Application.MainForm := FrmPrincipal;
+  FrmPrincipal.Show;
+  FrmLogin.Close;
 end;
 
 procedure TFrmLogin.rec_Conta_ProximoClick(Sender: TObject);
