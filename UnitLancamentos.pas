@@ -27,14 +27,18 @@ type
     Label3: TLabel;
     Label6: TLabel;
     Label7: TLabel;
-    Image4: TImage;
+    img_Add: TImage;
     lv_lancamento: TListView;
     procedure img_VoltarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure lv_lancamentoUpdateObjects(const Sender: TObject;
       const AItem: TListViewItem);
+    procedure lv_lancamentoItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure img_AddClick(Sender: TObject);
   private
+    procedure EditarLancamento(id_lancamento: string);
     { Private declarations }
   public
     { Public declarations }
@@ -47,7 +51,7 @@ implementation
 
 {$R *.fmx}
 
-uses UnitPrincipal;
+uses UnitPrincipal, UnitLancamentosCad;
 
 procedure TFrmLancamentos.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -72,9 +76,27 @@ begin
   foto.DisposeOf;
 end;
 
+procedure TFrmLancamentos.img_AddClick(Sender: TObject);
+begin
+  EditarLancamento('');
+end;
+
 procedure TFrmLancamentos.img_VoltarClick(Sender: TObject);
 begin
   Close;
+end;
+
+Procedure TFrmLancamentos.EditarLancamento(id_lancamento: string);
+begin
+  if not assigned(FrmLancamentosCad) then
+    Application.CreateForm(TFrmLancamentosCad, FrmLancamentosCad);
+  FrmLancamentosCad.Show;
+end;
+
+procedure TFrmLancamentos.lv_lancamentoItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+  EditarLancamento('');
 end;
 
 procedure TFrmLancamentos.lv_lancamentoUpdateObjects(const Sender: TObject;
