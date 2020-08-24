@@ -10,9 +10,47 @@
         <DeviceId Condition="'$(Platform)'=='iOSDevice64'"/>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
     </PropertyGroup>
-    <ItemGroup Condition="'$(Platform)'=='iOSDevice64'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice64'">
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Conga.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Conga.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Win64'"/>
-    <ItemGroup Condition="'$(Platform)'=='iOSDevice32'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice32'">
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Conga.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Conga.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Win32'">
         <DeployFile Include="Win32\Debug\Conga.exe" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Conga\</RemoteDir>
@@ -96,6 +134,15 @@
             <RemoteName>splash_image_def.xml</RemoteName>
             <DeployClass>AndroidSplashImageDef</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Conga\assets\internal\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -227,6 +274,15 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Conga\assets\internal\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_48x48.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Conga\res\drawable-mdpi\</RemoteDir>
             <RemoteName>ic_launcher.png</RemoteName>
@@ -293,11 +349,29 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Conga.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\Redist\iossimulator\libPCRE.dylib">
             <RemoteDir>Conga.app\</RemoteDir>
             <RemoteName>libPCRE.dylib</RemoteName>
             <DeployClass>DependencyModule</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Conga.app\StartUp\Documents\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -327,6 +401,15 @@
             <RemoteName>ic_notification.png</RemoteName>
             <DeployClass>Android_NotificationIcon96</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Conga\assets\internal\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -363,6 +446,15 @@
             <RemoteName>styles.xml</RemoteName>
             <DeployClass>AndroidSplashStyles</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="DB\banco.db" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Conga\assets\internal\</RemoteDir>
+            <RemoteName>banco.db</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
