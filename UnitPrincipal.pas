@@ -8,7 +8,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
-  FMX.ListView;
+  FMX.ListView, FMX.Ani;
 
 type
   TFrmPrincipal = class(TForm)
@@ -39,12 +39,23 @@ type
     lv_lancamento: TListView;
     img_categoria: TImage;
     StyleBook1: TStyleBook;
+    rect_menu: TRectangle;
+    layout_principal: TLayout;
+    AnimationMenu: TFloatAnimation;
+    img_fechar_menu: TImage;
+    layout_menu_cat: TLayout;
+    Label9: TLabel;
     procedure FormShow(Sender: TObject);
     procedure lv_lancamentoUpdateObjects(const Sender: TObject;
       const AItem: TListViewItem);
     procedure lbl_todos_lancClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure img_MenuClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure AnimationMenuFinish(Sender: TObject);
+    procedure AnimationMenuProcess(Sender: TObject);
+    procedure img_fechar_menuClick(Sender: TObject);
+    procedure layout_menu_catClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -107,6 +118,17 @@ begin
       img.Bitmap := bmp;
     end;
   end;
+end;
+
+procedure TFrmPrincipal.AnimationMenuFinish(Sender: TObject);
+begin
+  layout_principal.Enabled := AnimationMenu.Inverse;
+  AnimationMenu.Inverse := not AnimationMenu.Inverse;
+end;
+
+procedure TFrmPrincipal.AnimationMenuProcess(Sender: TObject);
+begin
+  layout_principal.Margins.Right := -260 - rect_menu.Margins.Left;
 end;
 
 procedure TFrmPrincipal.AddCategoria(ListView: TListView;
@@ -183,6 +205,13 @@ begin
   end;
 end;
 
+procedure TFrmPrincipal.FormCreate(Sender: TObject);
+begin
+  rect_menu.Margins.Left := -260;
+  rect_menu.Align := TAlignLayout.Left;
+  rect_menu.Visible := True;
+end;
+
 procedure TFrmPrincipal.FormShow(Sender: TObject);
 var
   foto: TStream;
@@ -199,8 +228,20 @@ begin
   foto.DisposeOf;
 end;
 
+procedure TFrmPrincipal.img_fechar_menuClick(Sender: TObject);
+begin
+  AnimationMenu.Start;
+end;
+
 procedure TFrmPrincipal.img_MenuClick(Sender: TObject);
 begin
+  AnimationMenu.Start;
+end;
+
+procedure TFrmPrincipal.layout_menu_catClick(Sender: TObject);
+begin
+  AnimationMenu.Start;
+
   if not Assigned(FrmCategorias) then
     Application.CreateForm(TFrmCategorias, FrmCategorias);
 
