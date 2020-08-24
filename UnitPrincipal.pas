@@ -44,6 +44,7 @@ type
       const AItem: TListViewItem);
     procedure lbl_todos_lancClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure img_MenuClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,6 +52,9 @@ type
       id_lancamento, descricao, categoria: String; valor: Double; dt: TDateTime;
       foto: TStream);
     procedure SetupLancamento(lv: TListView; Item: TListViewItem);
+    procedure AddCategoria(ListView: TListView; id_categoria, categoria: String;
+      foto: TStream);
+    procedure SetupCategoria(lv: TListView; Item: TListViewItem);
     { Public declarations }
   end;
 
@@ -61,7 +65,7 @@ implementation
 
 {$R *.fmx}
 
-uses UnitLancamentos;
+uses UnitLancamentos, UnitCategorias;
 
 //******************** UNIT FUNÇÕES GLOBAIS *********************
 
@@ -105,6 +109,42 @@ begin
   end;
 end;
 
+procedure TFrmPrincipal.AddCategoria(ListView: TListView;
+  id_categoria, categoria: String;
+  foto: TStream);
+var
+  txt: TListItemText;
+  img: TListItemImage;
+  bmp: TBitmap;
+begin
+  with ListView.Items.Add do
+  begin
+    //TagString é uma variável interna que pode armazenar qualquer valor string
+    //Aqui estará sendo usanda pra armazenar o ID da categoria
+    TagString := id_categoria;
+
+    // exemplo de uso com variável
+    txt := TListItemText(Objects.FindDrawable('txtCategoria'));
+    txt.Text := categoria;
+
+    // Ícone -> também poderia ser feito sem o uso da variável
+    img := TListItemImage(Objects.FindDrawable('imgIcone'));
+
+    if foto <> nil then
+    begin
+      bmp := TBitmap.Create;
+      bmp.LoadFromStream(foto);
+
+      // Essa parte só faz quando a imagem está sendo setada em tempo de execução
+      // Se a imagem estiver estática, vindo do disco ou banco, dará access violation
+      // Caso o comando abaixo não existisse, a lista no android viria em branco
+      img.OwnsBitmap := True;
+
+      img.Bitmap := bmp;
+    end;
+  end;
+end;
+
 procedure TFrmPrincipal.SetupLancamento(lv: TListView; Item: TListViewItem);
 var
   txt: TListItemText;
@@ -121,6 +161,16 @@ begin
 //    img.Visible := False;
 //    txt.PlaceOffset.X := 2;
 //  end;
+
+end;
+
+procedure TFrmPrincipal.SetupCategoria(lv: TListView; Item: TListViewItem);
+var
+  txt: TListItemText;
+
+begin
+  txt := TListItemText(Item.Objects.FindDrawable('txtCategoria'));
+  txt.Width := lv.Width - txt.PlaceOffset.x - 80;
 
 end;
 
@@ -147,6 +197,14 @@ begin
       'Informática', -99, date, foto);
 
   foto.DisposeOf;
+end;
+
+procedure TFrmPrincipal.img_MenuClick(Sender: TObject);
+begin
+  if not Assigned(FrmCategorias) then
+    Application.CreateForm(TFrmCategorias, FrmCategorias);
+
+  FrmCategorias.Show;
 end;
 
 procedure TFrmPrincipal.lbl_todos_lancClick(Sender: TObject);

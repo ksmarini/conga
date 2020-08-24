@@ -551,6 +551,7 @@ object FrmLancamentos: TFrmLancamentos
         AppearanceObjectName = 'Text1'
         AppearanceClassName = 'TTextObjectAppearance'
       end>
+    CanSwipeDelete = False
     OnItemClick = lv_lancamentoItemClick
   end
 end
